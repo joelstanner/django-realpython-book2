@@ -1,5 +1,12 @@
 error.log
 
+.Python
+env
+bin
+lib
+include
+
+
 ## python specific
 *.pyc
  

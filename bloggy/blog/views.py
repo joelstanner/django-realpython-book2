@@ -4,7 +4,10 @@ from django.shortcuts import get_object_or_404, render_to_response, redirect
 
 from blog.models import Post
 from blog.forms import PostForm
-#import pdb
+
+from bloggy.settings import PROJECT_ROOT
+
+import pdb
 
 def index(request):
     latest_posts = Post.objects.all().order_by('-created_at')
@@ -36,10 +39,11 @@ def post(request, post_name):
 def add_post(request):
     context = RequestContext(request)
     if request.method == 'POST':
-        format = PostForm(request.POST, request.FILES)
+        form = PostForm(request.POST, request.FILES)
         if form.is_valid():
             form.save(commit=True)
-            return redirect(index)
+            #pdb.set_trace()
+            return redirect(post, encode_url(form.data['title']))
         else:
             print form.errors
     else:
